@@ -5,6 +5,7 @@
 1. Download the repository
 2. Make sure you have docker and docker-compose installed
 3. Run it through the docker-compose like below:
+  
   docker compose up --scale bookingapi=4 -d --build
   
 - The project has tests to run
