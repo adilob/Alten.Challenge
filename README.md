@@ -10,8 +10,8 @@
   
 - The project has tests to run
 - The project has two files to import into Postman to test
-  - collection
-  - environment
+  - collection (Alten.postman_collection.json)
+  - environment (Alten.postman_environment.json)
   
 - When running through Postman, make sure you set the correct "url" in the environment and you can call the operations.
 
