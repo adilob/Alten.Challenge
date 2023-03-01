@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "491a1548-9829-4d4e-a081-a66a761194e7",
+		"name": "Alten Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2340928"
+	},
+	"item": [
+		{
+			"name": "GET customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Customer",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST new customer",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"customerId\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"adilo\",\r\n  \"lastName\": \"bertoncello\",\r\n  \"email\": \"adilo@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Customer",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET customer by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Customer/{{customerId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Customer",
+						"{{customerId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET rooms",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"roomNumber\", data[0].roomNumber);\r",
+							"pm.environment.set(\"roomId\", data[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Room",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Room"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET room availability",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Room/{{roomNumber}}/availability",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Room",
+						"{{roomNumber}}",
+						"availability"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST new reservation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"reservationId\", data.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerId\": \"{{customerId}}\",\r\n  \"roomId\": \"{{roomId}}\",\r\n  \"startReservation\": \"2023-03-02\",\r\n  \"endReservation\": \"2023-03-04\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Reservation",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Reservation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET reservation by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Reservation/{{reservationId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Reservation",
+						"{{reservationId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT reservation",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerId\": \"{{customerId}}\",\r\n  \"roomId\": \"{{roomId}}\",\r\n  \"startReservation\": \"2023-03-03\",\r\n  \"endReservation\": \"2023-03-05\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/Reservation/{{reservationId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Reservation",
+						"{{reservationId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE reservation",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/Reservation/{{reservationId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"Reservation",
+						"{{reservationId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
