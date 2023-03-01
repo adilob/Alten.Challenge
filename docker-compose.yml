@@ -1,0 +1,49 @@
+version: '3.9'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  bookingapi:
+    image: ${DOCKER_REGISTRY-}bookingapi
+    build:
+      context: .
+      dockerfile: BookingApi/Dockerfile
+    restart: always
+    links:
+      - sqlserver
+    networks:
+      - app-network
+    depends_on:
+      - sqlserver
+
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    cap_add: [ 'SYS_PTRACE' ]
+    hostname: mssql
+    container_name: sqlserver
+    restart: always
+    expose:
+      - 1433
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=1pAMCLF7y
+    networks:
+      - app-network
+
+  nginx:
+    image: ${DOCKER_REGISTRY-}bookingapi-proxy
+    container_name: bookingapi-proxy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8090:80"
+    depends_on:
+      - bookingapi
+      - sqlserver
+    networks:
+      - app-network
